@@ -1,0 +1,50 @@
+
+> test
+> mocha
+
+
+
+  Feature: Renderizado de contenido compartido en el chat
+    [32m√[39m Then una URL de imagen se muestra como elemento img
+    [32m√[39m Then una URL de video válida se muestra en un reproductor de YouTube
+    [32m√[39m Then un mensaje con HTML malicioso queda como texto y no crea elementos
+    [32m√[39m Then un ID de video inválido no crea un reproductor
+
+  unalib
+    funcion is_valid_phone
+      [32m√[39m deberia devolver true para 8297-8547
+      [32m√[39m deberia devolver false para 8297p-8547
+    funcion is_valid_url_image
+      [32m√[39m deberia devolver true para http://image.com/image.jpg
+      [32m√[39m deberia devolver true para http://image.com/image.gif
+    funcion is_valid_yt_video
+      [32m√[39m deberia devolver true para http://image.com/image.jpg
+    Feature: Compartir URLs en el chat
+      Scenario: Un usuario comparte una imagen
+        [32m√[39m Given una URL de imagen válida
+        [32m√[39m When el servidor procesa el mensaje
+        [32m√[39m Then el chat recibe una imagen para mostrar
+      Scenario: Un usuario comparte una imagen de Bing
+        [32m√[39m Given una miniatura de Bing con una URL de imagen en riu
+        [32m√[39m When el servidor procesa el mensaje
+        [32m√[39m Then el chat conserva el enlace para cargar la imagen
+      Scenario: Un usuario comparte un video de YouTube
+        [32m√[39m Given una URL válida de YouTube
+        [32m√[39m When el servidor procesa el mensaje
+        [32m√[39m Then el chat recibe el identificador para insertar el reproductor
+      Scenario: Un usuario comparte la portada de YouTube sin seleccionar un video
+        [32m√[39m Given una URL de YouTube sin identificador de video
+        [32m√[39m When el servidor procesa el mensaje
+        [32m√[39m Then no se intenta crear un reproductor vacío
+      Scenario: Un usuario envía texto normal
+        [32m√[39m Given un mensaje que no contiene una URL multimedia
+        [32m√[39m When el servidor procesa el mensaje
+        [32m√[39m Then el texto queda disponible para mostrarse en el chat
+    Feature: Mensajes seguros
+      [32m√[39m deberia eliminar etiquetas y contenido de scripts
+      [32m√[39m deberia eliminar el contenido de un script sin etiqueta de cierre
+      [32m√[39m deberia descartar propiedades no permitidas y validar el color
+      [32m√[39m no deberia aceptar esquemas ni hosts falsos como URL multimedia
+
+
+  28 passing (371ms)

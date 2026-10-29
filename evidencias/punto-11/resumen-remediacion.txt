@@ -1,0 +1,41 @@
+Resumen de remediacion de dependencias - UNA Chat
+npm audit inicial: {"info":0,"low":9,"moderate":1,"high":16,"critical":1,"total":27}
+npm audit final: {"info":0,"low":5,"moderate":0,"high":0,"critical":0,"total":5}
+Snyk inicial: 77 hallazgos, 55 unicos; severidades {"medium":22,"high":46,"low":8,"critical":1}
+Snyk final: 0 hallazgos; OK=true
+
+Dependencias directas: express 4.18.2 -> 4.22.3; socket.io 4.7.2 -> 4.8.4; mocha 10.2.0 -> 12.0.3
+
+Versiones reportadas por el npm audit inicial:
+express: before [4.18.2]; after [4.22.3]
+socket.io: before [4.7.2]; after [4.8.4]
+mocha: before [10.2.0]; after [12.0.3]
+body-parser: before [1.20.1]; after [1.20.9]
+brace-expansion: before [5.0.12 (node_modules/@jest/reporters/node_modules/brace-expansion), 2.0.1, 1.1.11 (node_modules/glob/node_modules/brace-expansion), 5.0.12 (node_modules/jest-config/node_modules/brace-expansion), 5.0.12 (node_modules/jest-runtime/node_modules/brace-expansion), 5.0.12 (node_modules/test-exclude/node_modules/brace-expansion), 2.1.7 (node_modules/test-exclude/node_modules/glob/node_modules/brace-expansion)]; after [5.0.12, 2.1.7 (node_modules/test-exclude/node_modules/glob/node_modules/brace-expansion)]
+braces: before [3.0.2]; after [not resolved]
+engine.io: before [6.5.2]; after [6.6.11]
+js-yaml: before [3.15.2 (node_modules/@istanbuljs/load-nyc-config/node_modules/js-yaml), 4.1.0]; after [3.15.2 (node_modules/@istanbuljs/load-nyc-config/node_modules/js-yaml), 5.5.0]
+minimatch: before [10.2.6 (node_modules/@jest/reporters/node_modules/minimatch), 3.1.2 (node_modules/glob/node_modules/minimatch), 10.2.6 (node_modules/jest-config/node_modules/minimatch), 10.2.6 (node_modules/jest-runtime/node_modules/minimatch), 5.0.1, 9.0.9 (node_modules/test-exclude/node_modules/glob/node_modules/minimatch), 10.2.6 (node_modules/test-exclude/node_modules/minimatch)]; after [10.2.6, 9.0.9 (node_modules/test-exclude/node_modules/glob/node_modules/minimatch)]
+nanoid: before [3.3.3]; after [not resolved]
+path-to-regexp: before [0.1.7]; after [0.1.13]
+picomatch: before [4.0.7 (node_modules/@parcel/watcher/node_modules/picomatch), 4.0.7 (node_modules/jest-haste-map/node_modules/picomatch), 4.0.7 (node_modules/jest-message-util/node_modules/picomatch), 4.0.7 (node_modules/jest-util/node_modules/picomatch), 2.3.1]; after [4.0.7 (node_modules/@parcel/watcher/node_modules/picomatch), 4.0.7 (node_modules/jest-haste-map/node_modules/picomatch), 4.0.7 (node_modules/jest-message-util/node_modules/picomatch), 4.0.7 (node_modules/jest-util/node_modules/picomatch), 2.3.2]
+proxy-addr: before [2.0.7]; after [2.0.8]
+qs: before [6.11.0, 6.16.1 (node_modules/superagent/node_modules/qs)]; after [6.16.2]
+serialize-javascript: before [6.0.0]; after [7.1.4]
+socket.io-adapter: before [2.5.2]; after [2.5.8]
+socket.io-parser: before [4.2.4]; after [4.2.7]
+ws: before [8.21.3 (node_modules/engine.io-client/node_modules/ws), 8.11.0]; after [8.21.3]
+
+Hallazgos npm pendientes: @jest/core (low; transitive), deepmerge (low; transitive), jest (low; directa), jest-cli (low; transitive), jest-config (low; transitive). npm recomienda bajar Jest a 25.1.0 (cambio mayor); no se aplico porque es una degradacion incompatible y estas alertas son bajas.
+No se uso npm audit fix --force. npm audit fix actualizo versiones compatibles del lockfile.
+Snyk CLI 1.1308.3 autenticada; snyk test final termino con exit 0.
+No se encontro la extension Snyk en las ubicaciones estandar de VS Code revisadas; se uso el escaneo CLI.
+Pruebas tras las actualizaciones:
+- npm test: 28 passing; exit 0.
+- npm run test:integration: 1 suite, 4 tests passing; exit 0.
+- npx playwright test --project=chromium --headed: 3 passing; exit 0.
+- npx playwright show-report: HTML servido y validado con HTTP 200.
+- git diff --check: OK.
+
+Evidencias de pruebas: pruebas-unitarias.txt, pruebas-integracion.txt, pruebas-e2e.txt.
+Evidencias de auditoria: npm-audit-inicial.json, npm-audit-final.json, snyk-inicial.json, snyk-final.json; los informes legibles estan junto a ellos.

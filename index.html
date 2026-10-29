@@ -15,6 +15,9 @@
       #nombre, #m { display: inline-block;}
       #m {width: 69%; margin-right: 4px;}
       #nombre {width: 20%}
+      #messages li { overflow-wrap: anywhere; }
+      .chat-image { display: block; max-width: min(400px, 100%); max-height: 400px; margin-top: 6px; }
+      .chat-video { display: block; width: min(560px, 100%); aspect-ratio: 16 / 9; margin-top: 6px; border: 0; }
     </style>
   </head>
   <body>
@@ -49,6 +52,10 @@
             var nombreTxt = $('#nombre').val() || "Anomimo";
             var mensajeTxt = $('#m').val();
 
+          if (!mensajeTxt.trim()) {
+            return false;
+          }
+
             if (colorHexTxt == "") {
                 colorHexTxt = getRandomColor();
             }
@@ -63,8 +70,37 @@
 
         socket.on('Evento-Mensaje-Server', function(msg){
             var msgJson = JSON.parse(msg);
-            var mensajeDisplay = "<b style='color:"+ msgJson.color +"'>" + msgJson.nombre + "</b>: " + msgJson.mensaje;
-            $('#messages').append($('<li>').html(mensajeDisplay));
+          var item = document.createElement('li');
+          var username = document.createElement('b');
+          username.textContent = msgJson.nombre;
+          username.style.color = /^#[0-9a-f]{6}$/i.test(msgJson.color) ? msgJson.color : '#222222';
+          item.append(username, document.createTextNode(': '));
+
+          if (msgJson.tipo === 'imagen') {
+            var image = document.createElement('img');
+            image.src = msgJson.mensaje;
+            image.alt = 'Imagen compartida en el chat';
+            image.className = 'chat-image';
+            image.loading = 'lazy';
+            item.appendChild(image);
+          } else if (msgJson.tipo === 'video') {
+            var videoId = /^[\w-]{11}$/.test(msgJson.videoId) ? msgJson.videoId : '';
+            if (videoId) {
+              var video = document.createElement('iframe');
+              video.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+              video.title = 'Video de YouTube compartido en el chat';
+              video.className = 'chat-video';
+              video.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+              video.allowFullscreen = true;
+              item.appendChild(video);
+            } else {
+              item.appendChild(document.createTextNode(msgJson.mensaje));
+            }
+          } else {
+            item.appendChild(document.createTextNode(msgJson.mensaje));
+          }
+
+          $('#messages').append(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
 

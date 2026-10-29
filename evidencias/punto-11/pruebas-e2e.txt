@@ -1,0 +1,8 @@
+
+Running 3 tests using 1 worker
+
+  ok 1 [chromium] › tests\e2e\chat.spec.js:8:3 › Recorrido E2E de UNA Chat › envía una URL de imagen y espera a que cargue (2.0s)
+  ok 2 [chromium] › tests\e2e\chat.spec.js:22:3 › Recorrido E2E de UNA Chat › envía una URL de video y espera la navegación del reproductor (2.0s)
+  ok 3 [chromium] › tests\e2e\chat.spec.js:36:3 › Recorrido E2E de UNA Chat › bloquea la inyección de scripts sin mostrar un diálogo (1.2s)
+
+  3 passed (9.6s)

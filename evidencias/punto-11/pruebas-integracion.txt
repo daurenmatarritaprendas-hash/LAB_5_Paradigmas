@@ -1,0 +1,9 @@
+
+> test:integration
+> node ./node_modules/jest/bin/jest.js tests/integration --runInBand --env=node
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        0.902 s, estimated 2 s
+Ran all test suites matching tests/integration.

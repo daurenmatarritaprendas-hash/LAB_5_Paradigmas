@@ -1,0 +1,18 @@
+
+Testing C:\Users\user\Downloads\Cursos UNA\VI SEMESTRE\PARADIGMAS DE PROGRAMACIÓN\Lab 5\antes...
+
+Organization:      daurenmatarritaprendas-hash
+Package manager:   npm
+Target file:       package-lock.json
+Project name:      package.json
+Open source:       no
+Project path:      C:\Users\user\Downloads\Cursos UNA\VI SEMESTRE\PARADIGMAS DE PROGRAMACIÓN\Lab 5\antes
+Licenses:          enabled
+
+✔ Tested 104 dependencies for known issues, no vulnerable paths found.
+
+Tip: Detected multiple supported manifests (1), use --all-projects to scan all of them at once.
+
+Next steps:
+- Run `snyk monitor` to be notified about new related vulnerabilities.
+- Run `snyk test` as part of your CI/test.

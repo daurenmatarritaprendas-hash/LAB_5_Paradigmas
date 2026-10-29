@@ -1,29 +1,34 @@
 
-// npm install para descargar los paquetes...
-
-// libreriuas
 var validation = require('./libs/unalib');
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
+var express = require('express');
+var httpModule = require('http');
+var socketIo = require('socket.io');
 
-// root: presentar html
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
+function createServer() {
+  var app = express();
+  var http = httpModule.createServer(app);
+  var io = socketIo(http);
 
-// escuchar una conexion por socket
-io.on('connection', function(socket){
-  // si se escucha "chat message"
-  socket.on('Evento-Mensaje-Server', function(msg){
-
-    msg =  validation.validateMessage(msg);
-    // volvemos a emitir el mismo mensaje
-    io.emit('Evento-Mensaje-Server', msg);
+  app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
   });
-});
 
-http.listen(port, function(){
-  console.log('listening on *:' + port);
-});
+  io.on('connection', function(socket){
+    socket.on('Evento-Mensaje-Server', function(msg){
+      msg = validation.validateMessage(msg);
+      io.emit('Evento-Mensaje-Server', msg);
+    });
+  });
+
+  return { app: app, http: http, io: io };
+}
+
+if (require.main === module) {
+  var server = createServer();
+  var port = process.env.PORT || 3000;
+  server.http.listen(port, function(){
+    console.log('listening on *:' + port);
+  });
+}
+
+module.exports = { createServer: createServer };
